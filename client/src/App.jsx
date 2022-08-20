@@ -14,6 +14,7 @@ import {
   Navigate
 } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Success from "./pages/Success";
 
 
 const App = () => {
@@ -23,12 +24,15 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/product/:id" element={<Product />} />
-        <Route exact path="/products/:category" element={<ProductList />} />
-        <Route exact path="/checkout" element={<Pay />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/login" element={user? <Navigate to="/" /> : <Login />} />
-        <Route exact path="/register" element={user? <Navigate to="/" /> : <Register />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/checkout" element={<Pay />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/login" element={user? <Navigate to="/" /> : <Login />} />
+        {/* <Route path="/login" element={user? <Navigate to="/" /> : <Login />} /> */}
+        {/* <Route path="/register" element={user? <Navigate to="/" /> : <Register />} /> */}
+        <Route path="/register" element={user? <Navigate to="/" /> : <Register />} />
         
       </Routes>
     </Router>

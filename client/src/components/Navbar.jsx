@@ -1,5 +1,5 @@
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Search, ShoppingCartOutlined, Person } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -72,6 +72,13 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const quantity = useSelector((state)=>state.cart.quantity)
 
+  const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
+  const currentUser = user && JSON.parse(user).currentUser;
+
+  const handleClick = ()=>{
+    localStorage.setItem("persist:root", null)
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -86,12 +93,22 @@ const Navbar = () => {
           <Logo>YOUFABES.</Logo>
         </Center>
         <Right>
-          <Link to={"/register"}>
-            <MenuItem>REGISTER</MenuItem>
+          {currentUser? 
+          <Link onClick={handleClick} to={"/"}>
+            <Badge badgeContent={quantity} color="primary">
+              <Person />
+            </Badge>
           </Link>
-          <Link to={"/login"}>
-            <MenuItem>SIGN IN</MenuItem>
-          </Link>
+          :
+          <>
+            <Link to={"/register"}>
+              <MenuItem>REGISTER</MenuItem>
+            </Link>
+            <Link to={"/login"}>
+              <MenuItem>SIGN IN</MenuItem>
+            </Link> 
+          </> 
+        }
           <Link to={"/cart"}>
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

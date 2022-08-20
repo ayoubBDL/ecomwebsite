@@ -1,7 +1,7 @@
 export const sliderItems = [
     {
       id: 1,
-      img: "https://image.similarpng.com/very-thumbnail/2020/12/Man-wearing-Style-Casual-on-transparent-background-PNG.png",
+      img: "https://www.pngall.com/wp-content/uploads/5/Attractive-Model-Man-Transparent.png",
       title: "SUMMER SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "f5fafd",

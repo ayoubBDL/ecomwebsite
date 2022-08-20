@@ -1,7 +1,7 @@
 import { Add, Remove } from "@material-ui/icons";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import styled from "styled-components";
@@ -166,6 +166,8 @@ const Cart = () => {
 
   const [stripeToken, setStripeToken] = useState(null)
 
+  const navigate = useNavigate()
+
   const onToken = (token) => {
     setStripeToken(token)
   }
@@ -176,15 +178,21 @@ const Cart = () => {
         const res = await axios.post(
           "http://localhost:5000/api/checkout/payment",{
             tokenId:stripeToken.id,
-            amount:2000
-          }
-          )
+            amount:cart.total * 100,
+          })
+
+          navigate("/success", {
+            state:{
+              stripeData: res.data,
+              cart: cart, }
+          });
+
       }catch(err){
         console.log(err)
       }
     }
-    stripeToken && makeRequest()
-  },[stripeToken])
+    stripeToken && cart.total >=1 && makeRequest()
+  },[stripeToken, cart.total, navigate])
 
   
   return (

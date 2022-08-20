@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods";
 
 const Info = styled.div`
   opacity: 0;
