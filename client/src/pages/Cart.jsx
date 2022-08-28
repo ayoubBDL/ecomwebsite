@@ -121,12 +121,6 @@ const ProductPrice = styled.div`
   ${mobile({ marginBottom: "20px" })}
 `;
 
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 1px;
-`;
-
 const Summary = styled.div`
   flex: 1;
   border: 0.5px solid lightgray;
@@ -151,14 +145,6 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-`;
-
 const KEY = process.env.REACT_APP_STRIPE
 
 const Cart = () => {
@@ -176,7 +162,7 @@ const Cart = () => {
     const makeRequest = async () =>{
       try{
         const res = await axios.post(
-          "http://localhost:5000/api/checkout/payment",{
+          process.env.BASE_URL+"checkout/payment",{
             tokenId:stripeToken.id,
             amount:cart.total * 100,
           })
@@ -192,7 +178,7 @@ const Cart = () => {
       }
     }
     stripeToken && cart.total >=1 && makeRequest()
-  },[stripeToken, cart.total, navigate])
+  },[stripeToken, cart, navigate])
 
   
   return (
