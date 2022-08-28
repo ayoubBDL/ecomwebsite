@@ -12,20 +12,22 @@ export default function FeaturedInfo() {
       try {
         const res = await userRequest.get("orders/income")
         setIncome(res.data)
-        setPerc((res.data[1].total * 100)/res.data[0].total - 100)
+        setPerc((res.data[1]? ((res.data[1].total * 100)/res.data[0].total - 100):0))
+        console.log("income", res)
       } catch (error) {
         console.error(error)
       }
     }
+    getIncome()
   },[])
 
   console.log(income)
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Revanue</span>
+        <span className="featuredTitle">Revenue</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">${income[1].total}</span>
+          <span className="featuredMoney">${income[1]?.total}</span>
           <span className="featuredMoneyRate">
             -{Math.floor(perc)} {" "}
             {
@@ -42,7 +44,7 @@ export default function FeaturedInfo() {
       <div className="featuredItem">
         <span className="featuredTitle">Sales</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$4,415</span>
+          <span className="featuredMoney">${income[0]?.total}</span>
           <span className="featuredMoneyRate">
             -1.4 <ArrowDownward className="featuredIcon negative"/>
           </span>
