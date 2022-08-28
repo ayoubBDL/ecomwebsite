@@ -1,5 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { register } from "../redux/apiCalls";
 import { mobile } from "../responsive";
+import {useDispatch} from "react-redux"
 
 const Container = styled.div`
   width: 100vw;
@@ -55,22 +58,39 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+
+  const [inputs, setInputs] = useState("") 
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const dispatch = useDispatch()
+
+  const handleChange = (e)=>{
+    setInputs((prev)=>{
+      return{...prev, [e.target.name]:e.target.value}
+    })
+  }
+
+  const handleOnclick = (e)=>{
+    e.preventDefault()
+    password === confirmPassword && register(dispatch, {...inputs, password})
+
+  }
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input name={"username"} onChange={handleChange} placeholder="username" />
+          <Input name={"email"} onChange={handleChange}  placeholder="email" />
+          <Input name={"password"} onChange={(e)=>setPassword(e.target.value)}  type="password" placeholder="password" />
+          <Input name={"confirmPassword"} onChange={(e)=>setConfirmPassword(e.target.value)} type="password" placeholder="confirm password" />
+          {password !== confirmPassword && <label><span style={{color:'red'}}>Password doesn't match</span></label>}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={handleOnclick}>CREATE</Button>
         </Form>
       </Wrapper>
     </Container>
