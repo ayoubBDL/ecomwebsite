@@ -74,7 +74,7 @@ export default function Product() {
     const handleUpdate = (e)=>{
         e.preventDefault()
         //todo
-        const fileName = new Date().getTime() + file.name;
+        const fileName = new Date().getTime() + file?.name;
         const storage = getStorage(app)
         const StorageRef = ref(storage, fileName)
         const uploadTask = uploadBytesResumable(StorageRef, file);
@@ -83,7 +83,7 @@ export default function Product() {
         // 1. 'state_changed' observer, called any time the state changes
         // 2. Error observer, called on failure
         // 3. Completion observer, called on successful completion
-        uploadTask.on(
+        file && uploadTask.on(
         "state_changed",
         (snapshot) => {
             // Observe state change events such as progress, pause, and resume
@@ -109,6 +109,7 @@ export default function Product() {
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             const product = { ...inputs, ...{img: downloadURL}, ...{categories: cat} };
+            console.log("pic ", fileName)
             updateProduct(productId, product, dispatch);
             });
         }
