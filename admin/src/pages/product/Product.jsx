@@ -36,7 +36,7 @@ export default function Product() {
 
     const [inputs, setInputs] = useState({}) 
     const [file, setFile] = useState(null)
-    const [cat, setCat] = useState([])
+    
 
     const handleChange = (e)=>{
         setInputs((prev)=>{
@@ -44,9 +44,9 @@ export default function Product() {
         })
       }
     
-      const handleCat = (e)=>{
-        setCat(e.target.value.split(","))
-      }
+    //   const handleCat = (e)=>{
+    //     setCat(e.target.value.split(","))
+    //   }
     
       const dispatch = useDispatch()
     
@@ -108,7 +108,7 @@ export default function Product() {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            const product = { ...inputs, ...{img: downloadURL}, ...{categories: cat} };
+            const product = { ...inputs, ...{img: downloadURL} };
             console.log("pic ", fileName)
             updateProduct(productId, product, dispatch);
             });

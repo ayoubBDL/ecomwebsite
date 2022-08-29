@@ -28,6 +28,7 @@ export const deleteProduct = async (id, dispatch)=>{
     dispatch(deleteProductStart());
 
     try{
+        // eslint-disable-next-line
         const res = await userRequest.delete(`/products/${id}`)
         dispatch(deleteProductSuccess(id))
     }catch(err){
