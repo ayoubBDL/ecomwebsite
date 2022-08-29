@@ -1,9 +1,6 @@
 import axios from "axios";
-import env from "react-dotenv";
 
-const API_URL = env.API_URL
-
-console.log("env", env)
+const API_URL = "http://localhost:5000/api/"
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;

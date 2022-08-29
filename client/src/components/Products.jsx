@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react'
 import styled from "styled-components";
 import Product from "./Product";
 import axios from "axios";
-import env from "react-dotenv";
 
 const Container = styled.div`
     padding: 20px;
@@ -19,7 +18,7 @@ const Products = ({cat, filters, sort}) => {
   useEffect(()=>{
     const getProducts = async ()=>{
       try{
-        const res = await axios.get(cat? `${env.API_URL}products?category=${cat}` : `${env.API_URL}products`)
+        const res = await axios.get(cat? `${process.env.REACT_APP_API_URL}products?category=${cat}` : `${process.env.REACT_APP_API_URL}products`)
         setProducts(res.data)
       }catch(err){
         
@@ -33,6 +32,7 @@ const Products = ({cat, filters, sort}) => {
     cat && setFilteredProducts(
       products.filter(item => Object.entries(filters).every(([key,value])=>item[key].includes(value)  ))
     )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[cat,filters])
 
   useEffect(()=>{

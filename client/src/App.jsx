@@ -16,7 +16,7 @@ import Success from "./pages/Success";
 
 const App = () => {
   const user = useSelector(state=>state.user.currentUser)
-
+  console.log("fff ",process.env.REACT_APP_API_URL )
   return (
     <Router>
       <Routes>
