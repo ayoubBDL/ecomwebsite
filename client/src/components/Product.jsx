@@ -5,8 +5,6 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const Info = styled.div`
   opacity: 0;
