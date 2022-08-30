@@ -18,5 +18,8 @@
     "mongoose": "^6.2.8",
     "nodemon": "^2.0.15",
     "stripe": "^9.11.0"
+  },
+  "engines": {
+    "node": "14.5.0"
   }
 }
