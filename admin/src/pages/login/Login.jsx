@@ -1,21 +1,24 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/apiCalls";
 
 
 const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [err, setErr] = useState("")
 
   const dispatch = useDispatch()
+  const {isFetching, error} = useSelector(state=>state.user)
 
-  const navigate = useNavigate()
-
+  useEffect(()=>{
+    setErr("")
+  },[username,password]) 
+  
   const handleClick = (e)=>{
     e.preventDefault()
     login(dispatch, {username, password})
-    navigate("/")
+    error && setErr("Something went wrong!")
   }
   return (
     <div
@@ -29,7 +32,8 @@ const Login = () => {
     >
         <input style={{marginBottom:20, padding:10}} placeholder="username" onChange={(e)=>setUsername(e.target.value)} />
         <input style={{marginBottom:20, padding:10}} placeholder="password" type={"password"} onChange={(e)=>setPassword(e.target.value)} />
-        <button onClick={handleClick} >LOGIN</button>
+        <button onClick={handleClick} disabled={isFetching} >LOGIN</button>
+        {err !== "" && <span style={{color:'red'}}>{err}</span>}
         
     </div>
   );

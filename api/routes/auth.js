@@ -40,7 +40,7 @@ router.post("/login", async (req,res)=>{
         const {password, ...others} = user._doc;
 
         if(!user){
-            res.status(401).json("User not Found")
+            res.status(404).json("User not Found")
         }else if(!comparePass){
             res.status(401).json("Wrong credentials!")
         }else{
