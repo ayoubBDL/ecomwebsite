@@ -9,7 +9,6 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import env from "react-dotenv";
 
 const Container = styled.div``;
 
@@ -163,7 +162,7 @@ const Cart = () => {
     const makeRequest = async () =>{
       try{
         const res = await axios.post(
-          env.API_URL+"checkout/payment",{
+          process.env.REACT_APP_API_URL+"checkout/payment",{
             tokenId:stripeToken.id,
             amount:cart.total * 100,
           })
