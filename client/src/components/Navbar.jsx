@@ -3,8 +3,9 @@ import { Search, ShoppingCartOutlined, Person } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/UserRedux";
 
 
 const Container = styled.div`
@@ -62,7 +63,7 @@ const Right = styled.div`
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled.a`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
@@ -72,11 +73,15 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const quantity = useSelector((state)=>state.cart.quantity)
 
-  const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
-  const currentUser = user && JSON.parse(user).currentUser;
+  const currentUser = useSelector((state)=>state.user.currentUser)
+  // const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
+  // const currentUser = user && JSON.parse(user).currentUser;
+
+  const dispatch = useDispatch()
 
   const handleClick = ()=>{
-    localStorage.setItem("persist:root", null)
+    // localStorage.setItem("persist:root", null)
+    logout(dispatch)
   }
 
   return (
@@ -94,18 +99,18 @@ const Navbar = () => {
         </Center>
         <Right>
           {currentUser? 
-          <Link onClick={handleClick} to={"/"}>
-            <Badge badgeContent={quantity} color="primary">
-              <Person />
-            </Badge>
+          <Link onClick={handleClick} to={"/"} >
+            <Badge color="primary">
+                <Person />
+              </Badge>
           </Link>
           :
           <>
             <Link to={"/register"}>
-              <MenuItem>REGISTER</MenuItem>
+              <MenuItem className="btn btn-secondary">REGISTER</MenuItem>
             </Link>
             <Link to={"/login"}>
-              <MenuItem>SIGN IN</MenuItem>
+              <MenuItem className="btn btn-primary">SIGN IN</MenuItem>
             </Link> 
           </> 
         }

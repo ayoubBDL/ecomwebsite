@@ -87,8 +87,7 @@ const Login = () => {
     e.preventDefault()
     login(dispatch, {username, password})
     error && setErr("Something went wrong!")
-    setUsername("")
-    setPassword("")
+    
   }
 
   return (

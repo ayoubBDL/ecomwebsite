@@ -30,11 +30,7 @@ router.post("/login", async (req,res)=>{
     try{
 
         const user = await User.findOne({username:req.body.username});
-        !user && res.status(401).json("Wrong credentials!")
-
         const comparePass = await bcrypt.compare(req.body.password, user.password)
-
-        !comparePass && res.status(401).json("Wrong credentials!")
 
         const accessToken = jwt.sign({
             id:user._id,
@@ -43,7 +39,13 @@ router.post("/login", async (req,res)=>{
 
         const {password, ...others} = user._doc;
 
-        res.status(200).json({...others, accessToken});
+        if(!user){
+            res.status(401).json("User not Found")
+        }else if(!comparePass){
+            res.status(401).json("Wrong credentials!")
+        }else{
+            res.status(200).json({...others, accessToken});
+        }
 
     }catch(err){
         res.status(500).json(err)

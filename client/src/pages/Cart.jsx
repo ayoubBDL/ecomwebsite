@@ -249,7 +249,7 @@ const Cart = () => {
                 image="https://www.vidhub.co/assets/logos/vidhub-icon-2e5c629f64ced5598a56387d4e3d0c7c.png"
                 billingAddress
                 shippingAddress
-                description='Your Total is $20'
+                description={`Your total is $${cart.total}`}
                 token={onToken}
                 stripeKey={KEY}
             >
