@@ -78,16 +78,19 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const {isFetching, error} = useSelector(state=>state.user) 
-
+  
+  useEffect(()=>{
+    setErr("")
+  },[username,password]) 
+  
   const handleClick = (e)=>{
     e.preventDefault()
     login(dispatch, {username, password})
+    error && setErr("Something went wrong!")
+    setUsername("")
+    setPassword("")
   }
 
-  useEffect(()=>{
-    setErr("Something Went Wrong !")
-  },[error])
-  
   return (
     <Container>
       <Wrapper>
