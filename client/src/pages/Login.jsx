@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -72,6 +73,7 @@ const Error = styled.span`
 const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [err, setErr] = useState("")
 
   const dispatch = useDispatch()
 
@@ -81,6 +83,11 @@ const Login = () => {
     e.preventDefault()
     login(dispatch, {username, password})
   }
+
+  useEffect(()=>{
+    setErr("Something Went Wrong !")
+  },[error])
+  
   return (
     <Container>
       <Wrapper>
@@ -89,9 +96,9 @@ const Login = () => {
           <Input placeholder="username" onChange={(e)=>setUsername(e.target.value)} />
           <Input placeholder="password" type={"password"} onChange={(e)=>setPassword(e.target.value)} />
           <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-          {error && <Error>Something Went Wrong !</Error>}
+          {err !== "" && <Error>{err}</Error>}
           <Link>DON'T YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Link to={"/register"}>CREATE A NEW ACCOUNT</Link>
         </Form>
       </Wrapper>
     </Container>
